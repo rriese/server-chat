@@ -26,3 +26,6 @@ No navegador, basta acessar em diferentes páginas o endereço:
 ```
 http://localhost:3000
 ```
+Digitar o nome do usuário, a mensagem e enviar.
+
+![Alt text](exemplo.png?raw=true "Title")
