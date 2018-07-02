@@ -8,7 +8,7 @@ Node js
 
 ### Como executar
 
-Após clonar ou baixar o repositório, é necessário instalar os módulos necessário no projeto. Para isso no prompt de comando dentro da pasta do projeto execute o comando:
+Após clonar ou baixar o repositório, é necessário instalar os módulos necessário no projeto. Para isso no prompt de comando dentro da pasta do projeto execute:
 
 ```
 npm install
