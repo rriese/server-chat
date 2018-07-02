@@ -1,0 +1,60 @@
+<html>
+   <title>Chat</title>
+   <head>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>	
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <form id="chat">
+         <input type="text" name="user" placeholder="Usuário">
+         <div class="messages"></div>
+         <input type="text" name="message" placeholder="Mensagem">
+         <button type="submit">Enviar Mensagem à Todos</button>
+      </form>
+      <script type="text/javascript">
+         // Cria um listener para o node
+         var socket = io('http://localhost:3000');
+         
+         // Função que exibe as mensagens
+         function buildAllMessages(message) {
+         	$('.messages').append('<div class="message"><strong>' + message.author + '</strong>: ' + message.message + '</div>');
+         };
+         
+         // Retorna a mensagem logo após ser enviada ao servidor
+         socket.on('returnMessage', function(message) {
+         	buildAllMessages(message);
+         });
+         
+         // Retorna todas as mensagens da base
+         socket.on('getAllMessages', function(messages) {
+         	for (message of messages) {
+         		buildAllMessages(message);
+         	}
+         });
+         
+         $('#chat').submit(function(event) {
+         	event.preventDefault();
+         	
+         	// Autor da thread
+         	var author = $('input[name="user"]').val();
+         	// Mensagem da thread
+         	var message = $('input[name="message"]').val();
+         	
+         	if (author.length && message.length) {
+         		// Cria um objeto para ser manipulado pelo servidor
+         		var chatObject = {
+         			author: author,
+         			message: message,
+         		};
+         		
+         		// Mostra após o envio para o servidor a mensagen na tela para todos
+         		buildAllMessages(chatObject);
+         		
+         		// Envia para o socket o objeto
+         		socket.emit('sendMessage', chatObject);
+         	}
+         })
+      </script>
+   </body>
+</html>
