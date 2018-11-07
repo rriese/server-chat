@@ -6,6 +6,7 @@ const express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
+    server = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 // Base de dados das mensagens
 var messages = [];
